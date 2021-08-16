@@ -18,18 +18,30 @@ model User {
   lastName String 
   userName String
   passWord String
-  orders Order[]
   reviews Review []
+  basket Basket []
   @@unique([userName, passWord])
 }
 
 model Category {
   id Int @id @default(autoincrement())
   name String
-  deals Deal []
+  items Item []
 }
 
-model Deal {
+model Review {
+  id Int @id @default(autoincrement())
+  description String
+  date String
+  rating Float
+  itemId Int
+  userId Int
+  item Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+}
+
+model Item {
   id Int @id @default(autoincrement())
   name String
   img String
@@ -38,28 +50,23 @@ model Deal {
   RRP Float
   categoryId Int
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  orders Order []
   reviews Review []
+  basketItem BasketItem[]
 }
 
-model Review {
+model BasketItem {
   id Int @id @default(autoincrement())
-  description String
-  date String
-  rating Float
-  dealId Int
-  userId Int
-  deal Deal @relation(fields: [dealId], references: [id], onDelete: Cascade)
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  qty Int
+  basketId Int
+  itemId Int
+  basket Basket @relation(fields: [basketId], references: [id], onDelete: Cascade)
+  item Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
 }
 
-model Order {
+model Basket {
   id Int @id @default(autoincrement())
-  quantity Int
   userId Int
-  dealId Int
-  total Float
+  items BasketItem []
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  deal Deal @relation(fields: [dealId], references: [id], onDelete: Cascade)
 }
+
