@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialActions"]
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  firstName String 
+  lastName String 
+  userName String
+  passWord String
+  orders Order[]
+  reviews Review []
+  @@unique([userName, passWord])
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String
+  deals Deal []
+}
+
+model Deal {
+  id Int @id @default(autoincrement())
+  name String
+  img String
+  description String
+  price Float
+  RRP Float
+  categoryId Int
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  orders Order []
+  reviews Review []
+}
+
+model Review {
+  id Int @id @default(autoincrement())
+  description String
+  date String
+  rating Float
+  dealId Int
+  userId Int
+  deal Deal @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  quantity Int
+  userId Int
+  dealId Int
+  total Float
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deal Deal @relation(fields: [dealId], references: [id], onDelete: Cascade)
+}
