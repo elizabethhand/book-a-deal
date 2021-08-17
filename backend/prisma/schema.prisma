@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialActions"]
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  firstName String 
+  lastName String 
+  userName String
+  passWord String
+  reviews Review []
+  basket Basket []
+  @@unique([userName, passWord])
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String
+  items Item []
+}
+
+model Review {
+  id Int @id @default(autoincrement())
+  description String
+  date String
+  rating Float
+  itemId Int
+  userId Int
+  item Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+}
+
+model Item {
+  id Int @id @default(autoincrement())
+  name String
+  img String
+  description String
+  price Float
+  RRP Float
+  categoryId Int
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  reviews Review []
+  basketItem BasketItem[]
+}
+
+model BasketItem {
+  id Int @id @default(autoincrement())
+  qty Int
+  basketId Int
+  itemId Int
+  basket Basket @relation(fields: [basketId], references: [id], onDelete: Cascade)
+  item Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
+}
+
+model Basket {
+  id Int @id @default(autoincrement())
+  userId Int
+  items BasketItem []
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
