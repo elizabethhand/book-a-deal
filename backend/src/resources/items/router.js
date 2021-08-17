@@ -1,12 +1,17 @@
-const express = require("express")
-const { getOneDeal, getDeals, getDealComments, updateComment } = require("./controller")
+const express = require("express");
+const {
+  getItems,
+  getOneItem,
+  getItemComments,
+  updateComments,
+} = require("./controller");
 
-const router = express.Router()
+const router = express.Router();
 
-router.get("/", getDeals)
-router.get("/:deal", getOneDeal)
-router.get("/:deal/comments", getDealComments)
-router.put("/:deal/comments/:commentId", updateComment)
-router.put("/comment/:id", deleteComent)
+router.get("/", getItems);
+router.get("/:deal", getOneItem);
+router.get("/:deal/comments", getItemComments);
+router.put("/:deal/comments/:commentId", updateComments);
+// router.put("/comment/:id", deleteComent);
 
-module.exports = router
+module.exports = router;
