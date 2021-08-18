@@ -1,6 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import HomepageTile from "../components/homepageTile";
+import { Switch, Route, Redirect } from "react-router-dom";
+import Itempage from "./Itempage";
 
 function Homepage() {
   const [items, setItems] = useState();
@@ -29,25 +31,25 @@ function Homepage() {
         <h1 className="category-title"> Retail</h1>
         <div className="container">
           {retail.map((item) => (
-            <HomepageTile item={item} />
+            <HomepageTile item={item} key={item.id} />
           ))}
         </div>
         <h1 className="category-title"> Food & Drink</h1>
         <div className="container">
           {fooddrink.map((item) => (
-            <HomepageTile item={item} />
+            <HomepageTile item={item} key={item.id} />
           ))}
         </div>
         <h1 className="category-title"> Health & Fitness</h1>
         <div className="container">
           {healthfitness.map((item) => (
-            <HomepageTile item={item} />
+            <HomepageTile item={item} key={item.id} />
           ))}
         </div>
         <h1 className="category-title"> Entertainment</h1>
         <div className="container">
           {entertainment.map((item) => (
-            <HomepageTile item={item} />
+            <HomepageTile item={item} key={item.id} />
           ))}
         </div>
       </div>

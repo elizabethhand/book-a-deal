@@ -1,5 +1,5 @@
 import { Switch, Route, Redirect } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/App.css";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
@@ -7,31 +7,31 @@ import Header from "./pages/Header";
 import Itempage from "./pages/Itempage";
 import Register from "./pages/Register";
 import Basket from "./pages/Basket";
-import { useEffect } from "react";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(false);
 
-  const [users, setUsers] = useState(true);
+  const [users, setUsers] = useState([]);
+  const [items, setItems] = useState([]);
+  const [reviews, setReviews] = useState([]);
+
+  const [isFetching, setIsFetching] = useState(true);
+  const [fetchError, setFetchError] = useState();
 
   useEffect(() => {
-    fetch("http://localhost:4000/users")
-      .then((resp) => resp.json())
-      .then(setUsers);
+    const fetchResults = (endpoint) =>
+      fetch(`http://localhost:4000/${endpoint}`).then((resp) => resp.json());
+
+    const dataFetches = [
+      fetchResults("users").then(({ users }) => setUsers(users)),
+      fetchResults("items").then(({ result }) => setItems(result)),
+      fetchResults("reviews").then(({ result }) => setReviews(result)),
+    ];
+
+    Promise.all(dataFetches)
+      .catch(setFetchError)
+      .finally(() => setIsFetching(false));
   }, []);
-
-  // useEffect(() => {
-  //   const requestOptions = {
-  //     method: "GET",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ userName: "readA", passWord: "Password123" }),
-  //   };
-  //   fetch("http://localhost:4000/login", requestOptions)
-  //     .then((response) => response.json())
-  //     .then(setCurrentUser);
-  // }, []);
-
-  // console.log(currentUser);
 
   return (
     <div className="App">
@@ -45,15 +45,14 @@ function App() {
             <Homepage />
           </Route>
           <Route path="/login">
-            <Login
-              users={users}
-              setCurrentUser={setCurrentUser}
-              setUsers={setUsers}
-              currentUser={currentUser}
-            />
+            <Login users={users} setCurrentUser={setCurrentUser} />
           </Route>
-          <Route path="/item">
-            <Itempage />
+          <Route path="/items/:itemId">
+            {isFetching && <>Loading...</>}
+            {fetchError && <>Error fetching data</>}
+            {!isFetching && !fetchError && (
+              <Itempage items={items} reviews={reviews} users={users} />
+            )}
           </Route>
           <Route path="/register">
             <Register setCurrentUser={setCurrentUser} />

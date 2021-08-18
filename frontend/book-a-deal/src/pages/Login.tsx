@@ -8,45 +8,23 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-export default function LoginPage({
-  setCurrentUser,
-  users,
-  setUsers,
-  currentUser,
-}) {
+export default function LoginPage({ setCurrentUser, users }) {
   // const classes = useStyles();
   const { register, getValues } = useForm();
 
-  //   function logIn(event) {
-  //     console.log(users);
-  //     if (users) {
-  //       const matchinUser = users.find(
-  //         (user) =>
-  //           user.userName === getValues("username") &&
-  //           user.passWord === getValues("password")
-  //       );
-  //       console.log(matchinUser);
-  //       if (matchinUser) {
-  //         setCurrentUser(matchinUser);
-  //       } else {
-  //         alert("Username or password incorrect");
-  //       }
-  //     }
-  //   }
-
-  //   console.log(currentUser);
-
-  //   function logIn(event) {
-  //     if (users) {
-  //       let foundUser = users.find(
-  //         (user) =>
-  //           user.userName === getValues("username") &&
-  //           user.passWord === getValues("password")
-  //       );
-  //       setCurrentUser(foundUser);
-  //       console.log(foundUser);
-  //     }
-  //   }
+  function logIn(event) {
+    const matchinUser = users.find(
+      (user) =>
+        user.userName === getValues("username") &&
+        user.passWord === getValues("password")
+    );
+    if (matchinUser) {
+      setCurrentUser(matchinUser);
+    } else {
+      event.preventDefault();
+      alert("Username or password incorrect");
+    }
+  }
 
   return (
     <main className="main-div">
