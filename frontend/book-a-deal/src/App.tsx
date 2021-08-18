@@ -10,7 +10,7 @@ import Basket from "./pages/Basket";
 import { useEffect } from "react";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(true);
+  const [currentUser, setCurrentUser] = useState(false);
 
   const [users, setUsers] = useState(true);
 
@@ -20,7 +20,18 @@ function App() {
       .then(setUsers);
   }, []);
 
-  console.log(users);
+  // useEffect(() => {
+  //   const requestOptions = {
+  //     method: "GET",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ userName: "readA", passWord: "Password123" }),
+  //   };
+  //   fetch("http://localhost:4000/login", requestOptions)
+  //     .then((response) => response.json())
+  //     .then(setCurrentUser);
+  // }, []);
+
+  // console.log(currentUser);
 
   return (
     <div className="App">
@@ -34,13 +45,18 @@ function App() {
             <Homepage />
           </Route>
           <Route path="/login">
-            <Login users={users} />
+            <Login
+              users={users}
+              setCurrentUser={setCurrentUser}
+              setUsers={setUsers}
+              currentUser={currentUser}
+            />
           </Route>
           <Route path="/item">
             <Itempage />
           </Route>
           <Route path="/register">
-            <Register />
+            <Register setCurrentUser={setCurrentUser} />
           </Route>
           <Route path="/basket">
             <Basket />

@@ -63,6 +63,7 @@ const addUser = async (req, res) => {
         userName,
       },
     });
+    console.log(exist);
 
     if (!exist.length) {
       const newUser = await user.create({
