@@ -54,6 +54,7 @@ const addItem = async (req, res) => {
 
 const deleteBasketItem = async (req, res) => {
   const id = Number(req.params.id);
+
   try {
     const removed = await basketItem.delete({
       where: {
