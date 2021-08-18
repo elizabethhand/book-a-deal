@@ -9,7 +9,7 @@ export default function Header({ currentUser, setCurrentUser }) {
     return (
         <div className="header">
             <h1> Book-a-deal</h1>
-            <TextField type="text" placeholder="search"></TextField>
+            <TextField type="text" placeholder="Search..."></TextField>
             {currentUser ? <LoggedInButtons currentUser={currentUser} setCurrentUser={setCurrentUser} /> : <HeaderButtons />}
         </div >
     )

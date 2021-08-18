@@ -11,6 +11,7 @@ const usersRouter = require("./src/resources/users/router");
 const categoryRouter = require("./src/resources/category/router");
 const basketRouter = require("./src/resources/basket/router");
 const basketItemRouter = require("./src/resources/basketItem/router");
+const cors = require("cors");
 
 var app = express();
 
