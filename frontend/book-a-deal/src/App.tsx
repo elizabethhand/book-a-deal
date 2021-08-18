@@ -7,6 +7,7 @@ import Header from './pages/Header'
 import Itempage from './pages/Itempage'
 import Register from './pages/Register'
 import Basket from './pages/Basket'
+import { useEffect } from 'react'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(true)

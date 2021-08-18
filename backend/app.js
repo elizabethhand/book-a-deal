@@ -10,11 +10,14 @@ const usersRouter = require("./src/resources/users/router");
 const categoryRouter = require("./src/resources/category/router");
 const basketRouter = require("./src/resources/basket/router");
 const basketItemRouter = require("./src/resources/basketItem/router");
+const cors = require('cors')
+
 
 var app = express();
 
 app.use(logger("dev"));
 app.use(express.json());
+app.use(cors())
 
 app.use(express.static(path.join(__dirname, "public")));
 

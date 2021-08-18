@@ -3,6 +3,7 @@ const prisma = require("../../../utils/prisma");
 function getItems(req, res) {
     prisma.item
         .findMany()
+        .then(result => { console.log(result); return result; })
         .then((result) => res.json({ result }))
 }
 

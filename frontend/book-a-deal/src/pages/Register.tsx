@@ -20,8 +20,7 @@ export default function RegisterPage({ setCurrentUser }) {
                 username: getValues('username'),
                 password: getValues('password'),
                 firstName: getValues('firstName'),
-                lastName: getValues('lastName'),
-                image: getValues('url')
+                lastName: getValues('lastName')
             })
         }).then(function (response) { return response.json() })
             .then(function (data) {
@@ -43,7 +42,6 @@ export default function RegisterPage({ setCurrentUser }) {
                 <TextField {...register("username")} fullWidth variant="outlined" type="text" placeholder="Username"></TextField>
                 <TextField {...register("email")} fullWidth variant="outlined" type="text" placeholder="Email Address"></TextField>
                 <TextField {...register("password")} fullWidth variant="outlined" type="text" placeholder="Password"></TextField>
-                <TextField {...register("url")} fullWidth variant="outlined" type="text" placeholder="Profile Picture"></TextField>
                 <FormControlLabel
                     control={<Checkbox name="Promotions" />}
                     label="I would like to recieve promotions and updates via email"
