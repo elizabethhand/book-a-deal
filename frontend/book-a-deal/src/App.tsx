@@ -9,10 +9,12 @@ import Register from './pages/Register'
 import Basket from './pages/Basket'
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(true)
+
 
   return (
     <div className="App">
-      <Header />
+      <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <main>
         <Switch>
           <Route path="/" exact>
