@@ -13,15 +13,15 @@ const addItem = async (req, res) => {
   const { qty, basketId, itemId } = req.body;
 
   try {
-    const inBasket = await basketItem.findFirst({
+    const inBasket = await basketItem.findMany({
       where: {
-        itemId,
+        itemId: Number(itemId),
       },
     });
 
     const basketExist = await basket.findUnique({
       where: {
-        id: basketId,
+        id: Number(basketId),
       },
     });
 
@@ -33,16 +33,19 @@ const addItem = async (req, res) => {
           id: inBasket.id,
         },
         data: {
-          qty: qty + 1,
+          ...inBasket,
+          qty: Number(qty) + 1,
         },
       });
       res.json({ updated: updatedQty });
+
+      console.log(updatedQty)
     } else {
       const newBasketItem = await basketItem.create({
         data: {
-          qty,
-          basketId,
-          itemId,
+          qty: Number(qty),
+          basketId: Number(basketId),
+          itemId: Number(itemId),
         },
       });
       res.json({ added: newBasketItem });

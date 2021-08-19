@@ -2,7 +2,7 @@ import React from "react";
 
 import "../styles/basket.css";
 
-function Basket() {
+function Basket({ currentUser }) {
   // {
   //     name: "ZAK Learning",
   //     img: "https://cdn.alzashop.com/ImgW.ashx?fd=f16&cd=SWMM0451",

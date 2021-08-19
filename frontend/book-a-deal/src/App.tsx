@@ -14,6 +14,7 @@ function App() {
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [baskets, setBaskets] = useState([])
 
   const [isFetching, setIsFetching] = useState(true);
   const [fetchError, setFetchError] = useState();
@@ -26,7 +27,9 @@ function App() {
       fetchResults("users").then(({ users }) => setUsers(users)),
       fetchResults("items").then(({ result }) => setItems(result)),
       fetchResults("reviews").then(({ result }) => setReviews(result)),
+      fetchResults("basket").then(({ baskets }) => setBaskets(baskets)),
     ];
+
 
     Promise.all(dataFetches)
       .catch(setFetchError)
@@ -51,14 +54,14 @@ function App() {
             {isFetching && <>Loading...</>}
             {fetchError && <>Error fetching data</>}
             {!isFetching && !fetchError && (
-              <Itempage items={items} reviews={reviews} users={users} />
+              <Itempage items={items} reviews={reviews} users={users} currentUser={currentUser} baskets={baskets} />
             )}
           </Route>
           <Route path="/register">
             <Register setCurrentUser={setCurrentUser} />
           </Route>
           <Route path="/basket">
-            <Basket />
+            <Basket currentUser={currentUser} />
           </Route>
         </Switch>
       </main>
