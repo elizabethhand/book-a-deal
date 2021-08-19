@@ -11,9 +11,10 @@ const getAllItems = async (req, res) => {
 
 const addItem = async (req, res) => {
   const { qty, basketId, itemId } = req.body;
+  console.log(qty, basketId, itemId);
 
   try {
-    const inBasket = await basketItem.findMany({
+    const inBasket = await basketItem.findFirst({
       where: {
         itemId: Number(itemId),
       },
@@ -34,23 +35,22 @@ const addItem = async (req, res) => {
         },
         data: {
           ...inBasket,
-          qty: Number(qty) + 1,
+          qty: inBasket.qty + Number(qty),
         },
       });
       res.json({ updated: updatedQty });
-
-      console.log(updatedQty)
     } else {
       const newBasketItem = await basketItem.create({
         data: {
-          qty: Number(qty),
-          basketId: Number(basketId),
-          itemId: Number(itemId),
+          qty: qty,
+          basketId: basketId,
+          itemId: itemId,
         },
       });
       res.json({ added: newBasketItem });
     }
   } catch (error) {
+    console.error({ error });
     res.json({ error: error.message });
   }
 };

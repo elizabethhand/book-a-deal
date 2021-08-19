@@ -6,61 +6,68 @@ import "../styles/itemPage.css";
 import Review from "../components/Review";
 
 function Itempage({ items, reviews, users, currentUser, baskets }) {
-    const { itemId } = useParams();
+  const { itemId } = useParams();
 
-    const foundItem = items.find((item) => item.id === parseInt(itemId));
-    const filteredReviews = reviews.filter(
-        (review) => review.itemId === parseInt(itemId)
-    );
+  const foundItem = items.find((item) => item.id === parseInt(itemId));
+  const filteredReviews = reviews.filter(
+    (review) => review.itemId === parseInt(itemId)
+  );
 
-    if (!foundItem) {
-        return <>Item not found!</>;
-    }
+  if (!foundItem) {
+    return <>Item not found!</>;
+  }
 
-    console.log(currentUser)
+  console.log(currentUser);
 
-    const foundBasket = baskets.find(basket => basket.userId === currentUser.id)
+  const foundBasket = baskets.find(
+    (basket) => basket.userId === currentUser.id
+  );
+  console.log(foundBasket);
+  console.log(foundItem);
 
+  function addToBasket() {
+    fetch("http://localhost:4000/basket-items", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        qty: 1,
+        basketId: foundBasket.id,
+        itemId: foundItem.id,
+      }),
+    });
+  }
 
-
-    function addToBasket() {
-        fetch('http://localhost:4000/basket-items', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "qty": 1,
-                "basketId": foundBasket.id,
-                "itemId": itemId
-            })
-        })
-    }
-
-    return (
-        <section className="itemPage">
-            <div className="top">
-                <h1 className="item-name">{foundItem.name}</h1>
-            </div>
-            <div className="imgContainer">
-                <img className="item-img" src={foundItem.img} alt="" />
-            </div>
-            <span className="description-title">Description</span>
-            <span>{foundItem.description}</span>
-            <div className="button-container">
-                <Link to="/basket" style={{ textDecoration: "none" }}>
-                    <Button type="submit" color="secondary" variant="contained" onClick={addToBasket} >
-                        {" "}
-                        Add to Basket
-                    </Button>
-                </Link>
-            </div>
-            <h3 className="review-title">Customer Reviews</h3>
-            {filteredReviews.map((review) => (
-                <Review review={review} users={users} key={review.id} />
-            ))}
-        </section>
-    );
+  return (
+    <section className="itemPage">
+      <div className="top">
+        <h1 className="item-name">{foundItem.name}</h1>
+      </div>
+      <div className="imgContainer">
+        <img className="item-img" src={foundItem.img} alt="" />
+      </div>
+      <span className="description-title">Description</span>
+      <span>{foundItem.description}</span>
+      <div className="button-container">
+        <Link to="/basket" style={{ textDecoration: "none" }}>
+          <Button
+            type="submit"
+            color="secondary"
+            variant="contained"
+            onClick={addToBasket}
+          >
+            {" "}
+            Add to Basket
+          </Button>
+        </Link>
+      </div>
+      <h3 className="review-title">Customer Reviews</h3>
+      {filteredReviews.map((review) => (
+        <Review review={review} users={users} key={review.id} />
+      ))}
+    </section>
+  );
 }
 
 export default Itempage;
