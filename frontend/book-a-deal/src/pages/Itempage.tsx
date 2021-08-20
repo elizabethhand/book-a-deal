@@ -5,38 +5,17 @@ import Button from "@material-ui/core/Button";
 import "../styles/itemPage.css";
 import Review from "../components/Review";
 
-function Itempage({ items, reviews, users, currentUser, baskets }) {
+function Itempage({ items, reviews, users, currentUser, addToBasket }) {
   const { itemId } = useParams();
 
   const foundItem = items.find((item) => item.id === parseInt(itemId));
+
   const filteredReviews = reviews.filter(
     (review) => review.itemId === parseInt(itemId)
   );
 
   if (!foundItem) {
     return <>Item not found!</>;
-  }
-
-  console.log(currentUser);
-
-  const foundBasket = baskets.find(
-    (basket) => basket.userId === currentUser.id
-  );
-  console.log(foundBasket);
-  console.log(foundItem);
-
-  function addToBasket() {
-    fetch("http://localhost:4000/basket-items", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        qty: 1,
-        basketId: foundBasket.id,
-        itemId: foundItem.id,
-      }),
-    });
   }
 
   return (
@@ -55,7 +34,7 @@ function Itempage({ items, reviews, users, currentUser, baskets }) {
             type="submit"
             color="secondary"
             variant="contained"
-            onClick={addToBasket}
+            onClick={() => addToBasket(foundItem)}
           >
             {" "}
             Add to Basket
