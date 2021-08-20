@@ -3,16 +3,15 @@ import HeaderButtons from "../components/headerButtons";
 import LoggedInButtons from "../components/loggedinButtons";
 import TextField from "@material-ui/core/TextField";
 import { useState } from "react";
-import { useHistory } from 'react-router-dom'
-
+import { useHistory } from "react-router-dom";
 
 export default function Header({ currentUser, setCurrentUser, items }) {
-  const [searchInput, setSearchInput] = useState("")
-  const history = useHistory()
+  const [searchInput, setSearchInput] = useState("");
+  const history = useHistory();
 
   function search(event) {
-    event.preventDefault()
-    setSearchInput(event.target.q.value)
+    event.preventDefault();
+    setSearchInput(event.target.q.value);
 
     let foundItem;
 
@@ -25,11 +24,10 @@ export default function Header({ currentUser, setCurrentUser, items }) {
     }
 
     if (!foundItem) {
-      alert("No matching items")
+      alert("No matching items");
     } else {
-      history.push(`/items/${foundItem.id}`)
+      history.push(`/items/${foundItem.id}`);
     }
-
   }
 
   return (

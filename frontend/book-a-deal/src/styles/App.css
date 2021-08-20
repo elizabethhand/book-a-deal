@@ -1,6 +1,6 @@
-*{
-  margin:0px;
-  padding:0px
+* {
+  margin: 0px;
+  padding: 0px;
 }
 
 /*  */
@@ -21,21 +21,21 @@
   width: 20px;
 } */
 
-.login-btn-container{
-  display:grid;
+.login-btn-container {
+  display: grid;
   grid-template-columns: 110px 110px;
-  place-items:start end;
+  place-items: start end;
   gap: 5px;
 }
 
-.header{
-    display:grid;
-    grid-auto-flow: column;
-    place-items:center;
-    height: 70px;
+.header {
+  display: grid;
+  grid-auto-flow: column;
+  place-items: center;
+  height: 70px;
 }
 
-.header input[type=text] {
+.header input[type="text"] {
   float: right;
   padding: 6px;
   border: none;
@@ -45,7 +45,7 @@
   height: 30px;
 }
 
-.header button{
+.header button {
   float: right;
   padding: 6px;
   margin-top: 8px;
@@ -53,79 +53,78 @@
   font-size: 17px;
   border: none;
   cursor: pointer;
-  height: 30px
+  height: 30px;
 }
 
-.header form{
-  display:grid;
+.header form {
+  display: grid;
   grid-template-columns: auto auto;
-  place-items:center;
+  place-items: center;
 }
 
-.header img{
-  height:25px;
+.header img {
+  height: 25px;
 }
 
-.header span{
+.header span {
   margin-right: 7px;
 }
 
-.loggedin-icon-container{
-  display:grid;
+.loggedin-icon-container {
+  display: grid;
   grid-template-columns: auto auto auto auto auto;
-  gap:7px;
-  place-items:center;
+  gap: 7px;
+  place-items: center;
 }
 
 /* Login Page */
 
-.main-div{
-  display:grid;
-  place-items:center;
+.main-div {
+  display: grid;
+  place-items: center;
+  padding-top: 10%;
 }
 
-.login-title{
-  display:grid;
-  place-items:center;
-  padding:15px;
-  margin:20px;
-  font-size:1.5rem
+.login-title {
+  display: grid;
+  place-items: center;
+  padding: 15px;
+  margin: 20px;
+  font-size: 1.5rem;
 }
 
-
-.login-container{
-  width:450px;
-  display:grid;
+.login-container {
+  width: 450px;
+  display: grid;
   grid-auto-flow: row;
   grid-gap: 20px;
 }
 
-.register-form{
-  display:grid;
-  grid-gap:20px;
+.register-form {
+  display: grid;
+  grid-gap: 20px;
 }
 
-.homepage-tile img{
-width: 180px;
+.homepage-tile img {
+  width: 180px;
 }
 
-.container{
-  display:grid;
+.container {
+  display: grid;
   grid-auto-flow: column;
-  grid-gap: 50px
+  grid-gap: 50px;
 }
 
-.homepage-tile h1{
+.homepage-tile h1 {
   font-size: 23px;
   border: 10px;
-  
 }
 
-.homepage-tile{
-  display:grid;
-  grid-gap:10px;
+.homepage-tile {
+  display: grid;
+  grid-gap: 10px;
 }
 
-.category-title{
+.category-title {
   padding: 20px 0px;
 }
