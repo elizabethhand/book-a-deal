@@ -10,7 +10,6 @@ import Basket from "./pages/Basket";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(false);
-
   const [users, setUsers] = useState([]);
   const [items, setItems] = useState([]);
   const [reviews, setReviews] = useState([]);

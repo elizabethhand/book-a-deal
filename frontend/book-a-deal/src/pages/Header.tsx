@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 export default function Header({ currentUser, setCurrentUser }) {
   return (
     <div className="header">
-      <h1> Book-a-deal</h1>
+      <h1 className="logo"> Book-a-deal</h1>
       <TextField type="text" placeholder="Search..."></TextField>
       {currentUser ? (
         <LoggedInButtons
