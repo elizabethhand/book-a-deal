@@ -1,7 +1,7 @@
 import React from "react"
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useParams } from 'react-router'
 import { useForm } from "react-hook-form";
 
@@ -9,6 +9,8 @@ export default function AddReview({ currentUser }) {
     const { register, getValues } = useForm();
     const { itemId } = useParams()
     console.log(currentUser)
+
+    const history = useHistory()
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -38,8 +40,8 @@ export default function AddReview({ currentUser }) {
                 <form className="register-form" style={{ width: 450 }} type="submit" >
                     <TextField {...register("review")} name="review" variant="outlined" type="text" placeholder="What did you think?" fullWidth multiline
                         rows="10"></TextField>
-                    <Link to={`/items/${itemId}`} style={{ textDecoration: 'none' }}>
-                        < Button onClick={handleSubmit} type="submit" color="secondary" variant="contained"> Submit</Button >
+                    <Link exact to={`/items/${itemId}`} onClick={handleSubmit} style={{ textDecoration: 'none' }}>
+                        < Button onClick={() => history.push("./items/${itemId}")} component={handleSubmit} type="submit" color="secondary" variant="contained"> Submit</Button >
                     </Link>
                 </form>
             </div>

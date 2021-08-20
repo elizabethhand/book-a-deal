@@ -40,12 +40,12 @@ const removeBasket = async (req, res) => {
 };
 
 const findBasket = async (req, res) => {
-  const id = parseInt(req.params.id);
+  const userId = parseInt(req.params.userId);
 
   try {
-    const existBasket = await basket.findUnique({
+    const existBasket = await basket.findFirst({
       where: {
-        id,
+        userId,
       },
       include: {
         items: true,

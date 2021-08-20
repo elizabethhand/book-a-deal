@@ -1,4 +1,4 @@
-const { basketItem, basket } = require("../../../utils/prisma");
+const { basketItem, basket, item } = require("../../../utils/prisma");
 
 const getAllItems = async (req, res) => {
   try {
@@ -9,11 +9,36 @@ const getAllItems = async (req, res) => {
   }
 };
 
+const updateItem = async (req, res) => {
+  const id = Number(req.params.id);
+  const { qty } = req.body;
+
+  try {
+    const itemExict = await basketItem.findUnique({
+      where: {
+        id,
+      },
+    });
+    const updated = await basketItem.update({
+      where: {
+        id,
+      },
+      data: {
+        ...itemExict,
+        qty: itemExict.qty - Number(qty),
+      },
+    });
+    res.json({ data: updated });
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
+
 const addItem = async (req, res) => {
   const { qty, basketId, itemId } = req.body;
 
   try {
-    const inBasket = await basketItem.findMany({
+    const inBasket = await basketItem.findFirst({
       where: {
         itemId: Number(itemId),
       },
@@ -34,23 +59,22 @@ const addItem = async (req, res) => {
         },
         data: {
           ...inBasket,
-          qty: Number(qty) + 1,
+          qty: inBasket.qty + Number(qty),
         },
       });
-      res.json({ updated: updatedQty });
-
-      console.log(updatedQty)
+      res.json({ data: updatedQty });
     } else {
       const newBasketItem = await basketItem.create({
         data: {
-          qty: Number(qty),
-          basketId: Number(basketId),
-          itemId: Number(itemId),
+          qty: qty,
+          basketId: basketId,
+          itemId: itemId,
         },
       });
-      res.json({ added: newBasketItem });
+      res.json({ data: newBasketItem });
     }
   } catch (error) {
+    console.error({ error });
     res.json({ error: error.message });
   }
 };
@@ -70,4 +94,4 @@ const deleteBasketItem = async (req, res) => {
   }
 };
 
-module.exports = { getAllItems, addItem, deleteBasketItem };
+module.exports = { getAllItems, addItem, deleteBasketItem, updateItem };

@@ -8,10 +8,11 @@ import Review from "../components/Review";
 function Itempage({ items, reviews, users, currentUser, baskets }) {
     const { itemId } = useParams();
 
+    console.log(items)
     const foundItem = items.find((item) => item.id === parseInt(itemId));
     const filteredReviews = reviews.filter(
         (review) => review.itemId === parseInt(itemId)
-    );
+    )
 
     if (!foundItem) {
         return <>Item not found!</>;

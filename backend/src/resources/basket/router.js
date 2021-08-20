@@ -9,7 +9,7 @@ const {
 
 basketRouter.get("/", getAllBaskets);
 
-basketRouter.get("/:id", findBasket);
+basketRouter.get("/:userId", findBasket);
 
 basketRouter.post("/", addNewBasket);
 
