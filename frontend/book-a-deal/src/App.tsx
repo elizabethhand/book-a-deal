@@ -7,6 +7,7 @@ import Header from "./pages/Header";
 import Itempage from "./pages/Itempage";
 import Register from "./pages/Register";
 import Basket from "./pages/Basket";
+import AddReview from "./pages/AddReview";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(false);
@@ -114,7 +115,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      <Header currentUser={currentUser} setCurrentUser={setCurrentUser} items={items} />
       <main>
         <Switch>
           <Route path="/" exact>
@@ -152,6 +153,9 @@ function App() {
               deleteBasketItem={deleteBasketItem}
               decreseQuantity={decreseQuantity}
             />
+          </Route>
+          <Route path="/addreview/:itemId">
+            <AddReview currentUser={currentUser} />
           </Route>
         </Switch>
       </main>

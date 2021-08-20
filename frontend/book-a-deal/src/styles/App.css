@@ -23,23 +23,43 @@
 
 .login-btn-container {
   display: grid;
-  grid-auto-flow: column;
-  gap: 10px;
+  grid-template-columns: 110px 110px;
+  place-items: start end;
+  gap: 5px;
 }
 
 .header {
   display: grid;
   grid-auto-flow: column;
-  place-items: start end;
-  height: 50px;
-  padding: 25px 10px;
+  place-items: center;
+  height: 70px;
 }
 
-.logo {
-  font-size: 3.2rem;
-  font-weight: 500;
-  color: #585655;
-  font-family: Marker Felt, fantasy;
+.header input[type="text"] {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+  height: 30px;
+}
+
+.header button {
+  float: right;
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  height: 30px;
+}
+
+.header form {
+  display: grid;
+  grid-template-columns: auto auto;
+  place-items: center;
 }
 
 .header img {
