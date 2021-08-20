@@ -56,6 +56,9 @@ function Itempage({ items, reviews, users, currentUser, baskets }) {
                 </Link>
             </div>
             <h3 className="review-title">Customer Reviews</h3>
+            <Link to={`/addreview/${itemId}`} style={{ textDecoration: 'none' }}>
+                <Button id="modal-btn" variant="contained" color="secondary" > Write a review</Button>
+            </Link>
             {filteredReviews.map((review) => (
                 <Review review={review} users={users} key={review.id} />
             ))}
