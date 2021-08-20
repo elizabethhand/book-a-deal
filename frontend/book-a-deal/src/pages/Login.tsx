@@ -13,7 +13,7 @@ export default function LoginPage({ setCurrentUser, users }) {
   const { register, getValues } = useForm();
 
   function logIn(event) {
-    const matchinUser = users.find(
+    const matchinUser = users && users.find(
       (user) =>
         user.userName === getValues("username") &&
         user.passWord === getValues("password")

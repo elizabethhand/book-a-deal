@@ -5,38 +5,30 @@ import Button from "@material-ui/core/Button";
 import "../styles/itemPage.css";
 import Review from "../components/Review";
 
-function Itempage({ items, reviews, users, currentUser, baskets }) {
+function Itempage({
+    items,
+    reviews,
+    users,
+    currentUser,
+    baskets,
+    addToBasket,
+}) {
     const { itemId } = useParams();
 
-    console.log(items)
+    console.log(items);
     const foundItem = items.find((item) => item.id === parseInt(itemId));
     const filteredReviews = reviews.filter(
         (review) => review.itemId === parseInt(itemId)
-    )
+    );
 
     if (!foundItem) {
         return <>Item not found!</>;
     }
 
-    console.log(currentUser)
+    console.log(currentUser);
 
-    const foundBasket = baskets.find(basket => basket.userId === currentUser.id)
-
-
-
-    function addToBasket() {
-        fetch('http://localhost:4000/basket-items', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "qty": 1,
-                "basketId": foundBasket.id,
-                "itemId": itemId
-            })
-        })
-    }
+    const foundBasket =
+        baskets && baskets.find((basket) => basket.userId === currentUser.id);
 
     return (
         <section className="itemPage">
@@ -50,15 +42,23 @@ function Itempage({ items, reviews, users, currentUser, baskets }) {
             <span>{foundItem.description}</span>
             <div className="button-container">
                 <Link to="/basket" style={{ textDecoration: "none" }}>
-                    <Button type="submit" color="secondary" variant="contained" onClick={addToBasket} >
+                    <Button
+                        type="submit"
+                        color="secondary"
+                        variant="contained"
+                        onClick={() => addToBasket(foundItem)}
+                    >
                         {" "}
                         Add to Basket
                     </Button>
                 </Link>
             </div>
             <h3 className="review-title">Customer Reviews</h3>
-            <Link to={`/addreview/${itemId}`} style={{ textDecoration: 'none' }}>
-                <Button id="modal-btn" variant="contained" color="secondary" > Write a review</Button>
+            <Link to={`/addreview/${itemId}`} style={{ textDecoration: "none" }}>
+                <Button id="modal-btn" variant="contained" color="secondary">
+                    {" "}
+                    Write a review
+                </Button>
             </Link>
             {filteredReviews.map((review) => (
                 <Review review={review} users={users} key={review.id} />

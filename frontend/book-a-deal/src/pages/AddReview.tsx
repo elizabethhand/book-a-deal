@@ -8,12 +8,12 @@ import { useForm } from "react-hook-form";
 export default function AddReview({ currentUser }) {
     const { register, getValues } = useForm();
     const { itemId } = useParams()
-    console.log(currentUser)
 
     const history = useHistory()
 
     function handleSubmit(event) {
-        event.preventDefault()
+        // event.preventDefault()
+
         const newReview = {
             description: getValues("review"),
             date: "17/08/2021",
@@ -22,7 +22,6 @@ export default function AddReview({ currentUser }) {
             userId: Number(currentUser.id),
 
         }
-        console.log(newReview)
 
         fetch('http://localhost:4000/reviews', {
             method: 'POST',
@@ -31,6 +30,7 @@ export default function AddReview({ currentUser }) {
             },
             body: JSON.stringify(newReview)
         })
+        return null;
 
     }
     return (
@@ -40,8 +40,8 @@ export default function AddReview({ currentUser }) {
                 <form className="register-form" style={{ width: 450 }} type="submit" >
                     <TextField {...register("review")} name="review" variant="outlined" type="text" placeholder="What did you think?" fullWidth multiline
                         rows="10"></TextField>
-                    <Link exact to={`/items/${itemId}`} onClick={handleSubmit} style={{ textDecoration: 'none' }}>
-                        < Button onClick={() => history.push("./items/${itemId}")} component={handleSubmit} type="submit" color="secondary" variant="contained"> Submit</Button >
+                    <Link exact to={`/items/${itemId}`} style={{ textDecoration: 'none' }}>
+                        < Button onClick={handleSubmit} type="submit" color="secondary" variant="contained"> Submit</Button >
                     </Link>
                 </form>
             </div>
